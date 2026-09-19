@@ -1,5 +1,39 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Lightbox dos banners de produto (clique para ampliar)
+(() => {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = lightbox?.querySelector('.lightbox-close');
+  if (!lightbox || !lightboxImg) return;
+
+  function open(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const src = trigger.getAttribute('data-lightbox');
+      const alt = trigger.querySelector('img')?.alt || '';
+      open(src, alt);
+    });
+  });
+
+  closeBtn?.addEventListener('click', close);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
 // Carrossel do topo
 (() => {
   const root = document.getElementById('carousel');

@@ -17,7 +17,7 @@
         <img src="assets/logo-ab.png" alt="AB Tecnologia">
         <span class="brand-name">AB <strong>Tecnologia</strong></span>
       </a>
-      <a class="nav-cta" href="https://wa.me/5591980955862" target="_blank" rel="noopener">Fale conosco</a>
+      <a class="nav-cta" href="https://wa.me/5591980955862?text=Vim%20pelo%20site%20da%20AB%20Tecnologia%20e%20gostaria%20de%20solicitar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20e%20servi%C3%A7os" target="_blank" rel="noopener">Fale conosco</a>
     </div>
   </header>
 
@@ -50,7 +50,7 @@
         <p class="hero-slogan">AB Tecnologia — Computadores, Notebooks e Assistência Técnica</p>
         <div class="hero-bar-actions">
           <a class="btn btn-primary" href="#produtos">Ver produtos <span>→</span></a>
-          <a class="btn btn-outline" href="https://wa.me/5591980955862" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          <a class="btn btn-outline" href="https://wa.me/5591980955862?text=Vim%20pelo%20site%20da%20AB%20Tecnologia%20e%20gostaria%20de%20solicitar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20e%20servi%C3%A7os" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
         </div>
       </div>
       <div class="trust-row">
@@ -72,18 +72,18 @@
           <p>Escolha uma categoria e fale com nossa equipe para encontrar a configuração ideal.</p>
         </div>
         <div class="product-grid">
-          <article class="product-card featured">
-            <div class="card-copy"><span>DESEMPENHO</span><h3>PCs &amp;<br>Computadores</h3><a href="#contato">Consultar →</a></div>
-            <img src="assets/computador-hero.png" alt="Computador">
-          </article>
+          <button type="button" class="product-card featured banner-card" data-lightbox="assets/1.jpg" aria-label="Ampliar imagem do anúncio de computador completo">
+            <span class="banner-label">PCs e Computadores</span>
+            <img src="assets/1.jpg" alt="Computador completo em promoção - AB Tecnologia">
+          </button>
           <article class="product-card">
             <div class="card-copy"><span>PORTABILIDADE</span><h3>Notebooks</h3><a href="#contato">Consultar →</a></div>
             <img src="assets/notebook.png" alt="Notebook">
           </article>
-          <article class="product-card">
-            <div class="card-copy"><span>GAMING</span><h3>PC Gamer</h3><a href="#contato">Consultar →</a></div>
-            <img src="assets/pc-gamer.png" alt="PC Gamer">
-          </article>
+          <button type="button" class="product-card banner-card" data-lightbox="assets/2.jpg" aria-label="Ampliar imagem do anúncio de computador gamer">
+            <span class="banner-label">PC Gamer</span>
+            <img src="assets/2.jpg" alt="Computador gamer em promoção - AB Tecnologia">
+          </button>
           <article class="product-card">
             <div class="card-copy"><span>COMPONENTES</span><h3>Processadores</h3><a href="#contato">Consultar →</a></div>
             <img src="assets/processador-i5.png" alt="Processador Intel Core i5">
@@ -102,7 +102,7 @@
           <span class="eyebrow">POR QUE AB TECNOLOGIA?</span>
           <h2>Comprar tecnologia pode ser simples.</h2>
           <p>Você escolhe o que precisa. Nossa equipe ajuda a encontrar a solução certa, sem complicação.</p>
-          <a class="btn btn-primary" href="https://wa.me/5591980955862" target="_blank" rel="noopener">Falar com um especialista →</a>
+          <a class="btn btn-primary" href="https://wa.me/5591980955862?text=Vim%20pelo%20site%20da%20AB%20Tecnologia%20e%20gostaria%20de%20solicitar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20e%20servi%C3%A7os" target="_blank" rel="noopener">Falar com um especialista →</a>
         </div>
         <div class="benefit-cards">
           <div class="benefit"><div class="icon">✓</div><div><h3>Produtos originais</h3><p>Trabalhamos com marcas reconhecidas e produtos de procedência.</p></div></div>
@@ -119,7 +119,7 @@
           <h2>Vamos encontrar a tecnologia certa para você.</h2>
           <p>Envie o que você procura. Nossa equipe pode orientar sobre modelos, configurações e disponibilidade.</p>
         </div>
-        <a class="btn btn-white" href="https://wa.me/5591980955862" target="_blank" rel="noopener">Chamar no WhatsApp <span>→</span></a>
+        <a class="btn btn-white" href="https://wa.me/5591980955862?text=Vim%20pelo%20site%20da%20AB%20Tecnologia%20e%20gostaria%20de%20solicitar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20e%20servi%C3%A7os" target="_blank" rel="noopener">Chamar no WhatsApp <span>→</span></a>
       </div>
     </section>
   </main>
@@ -133,9 +133,14 @@
     <div class="container copyright">© <span id="year"></span> AB Tecnologia. Todos os direitos reservados.</div>
   </footer>
 
-  <a class="whatsapp" href="https://wa.me/5591980955862" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <a class="whatsapp" href="https://wa.me/5591980955862?text=Vim%20pelo%20site%20da%20AB%20Tecnologia%20e%20gostaria%20de%20solicitar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20e%20servi%C3%A7os" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <img src="assets/whatsapp-icon.png" alt="WhatsApp" width="30" height="30">
   </a>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" aria-label="Fechar imagem">×</button>
+    <img src="" alt="" id="lightbox-img">
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
