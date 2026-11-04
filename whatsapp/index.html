@@ -2,21 +2,47 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>City Norte Segurança & Tecnologia</title>
+</head>
 
-  <meta http-equiv="refresh" content="0; url=https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+<body>
+  <p>Redirecionando para o WhatsApp...</p>
+
+  <a href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+    Clique aqui se o redirecionamento não funcionar.
+  </a>
 
   <script>
-    window.location.replace("https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.");
+    const WHATSAPP_URL =
+      "https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.";
+
+    const SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbyqTzv5yqwt5Of2QKj2fVbdKWF_xW0Hpf9ZZ-24WZ-wl1VPMYf0gBxBDoMUF3KU3ZXL/exec";
+
+    async function iniciar() {
+      try {
+        const resposta = await fetch(
+          "https://api.ipify.org?format=json"
+        );
+
+        const dados = await resposta.json();
+
+        const url =
+          SCRIPT_URL +
+          "?ip=" + encodeURIComponent(dados.ip) +
+          "&origem=" + encodeURIComponent("Facebook");
+
+        await fetch(url, { mode: "no-cors" });
+
+      } catch (erro) {
+        console.log("Não foi possível contabilizar o acesso.");
+      }
+
+      window.location.replace(WHATSAPP_URL);
+    }
+
+    iniciar();
   </script>
-</head>
-<body>
-  <p>
-    Redirecionando para o WhatsApp...
-    <a href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
-      Clique aqui
-    </a>
-    se o redirecionamento não funcionar.
-  </p>
 </body>
 </html>
