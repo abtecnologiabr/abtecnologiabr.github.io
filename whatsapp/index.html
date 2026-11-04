@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,79 +11,66 @@
   <h3>City Norte Segurança & Tecnologia</h3>
   <p id="status">Preparando seu acesso ao WhatsApp...</p>
 
-  <a href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+  <a id="manual" href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
     Clique aqui se não for redirecionado.
   </a>
 
-  <iframe
-    id="contador"
-    title="Registro de acesso"
-    style="display:none"
-  ></iframe>
-
   <script>
-    const SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbyqTzv5yqwt5Of2QKj2fVbdKWF_xW0Hpf9ZZ-24WZ-wl1VPMYf0gBxBDoMUF3KU3ZXL/exec";
-
-    const WHATSAPP_URL =
-      "https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqTzv5yqwt5Of2QKj2fVbdKWF_xW0Hpf9ZZ-24WZ-wl1VPMYf0gBxBDoMUF3KU3ZXL/exec";
+    const WHATSAPP_URL = document.getElementById("manual").href;
 
     let redirecionado = false;
 
     function abrirWhatsApp() {
       if (redirecionado) return;
-
       redirecionado = true;
       window.location.replace(WHATSAPP_URL);
     }
 
+    function comTimeout(promessa, ms) {
+      return Promise.race([
+        promessa,
+        new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))
+      ]);
+    }
+
+    async function obterIP() {
+      try {
+        const r = await comTimeout(
+          fetch("https://api.ipify.org?format=json", { cache: "no-store" }),
+          2000
+        );
+        const d = await r.json();
+        return d.ip || "";
+      } catch (e) {
+        return "";
+      }
+    }
+
     async function iniciar() {
-      const status = document.getElementById("status");
+      // garante o redirecionamento mesmo se algo travar
+      setTimeout(abrirWhatsApp, 4500);
+
+      const ip = await obterIP();
+
+      const url = SCRIPT_URL +
+        "?ip=" + encodeURIComponent(ip) +
+        "&origem=" + encodeURIComponent("Facebook") +
+        "&t=" + Date.now();
 
       try {
-        status.textContent = "Verificando conexão...";
-
-        const resposta = await fetch(
-          "https://api.ipify.org?format=json",
-          { cache: "no-store" }
+        await comTimeout(
+          fetch(url, { mode: "no-cors", keepalive: true, cache: "no-store" }),
+          3000
         );
-
-        if (!resposta.ok) {
-          throw new Error("Falha ao consultar IP.");
-        }
-
-        const dados = await resposta.json();
-
-        status.textContent = "Registrando acesso...";
-
-        const url =
-          SCRIPT_URL +
-          "?ip=" + encodeURIComponent(dados.ip) +
-          "&origem=" + encodeURIComponent("Facebook") +
-          "&t=" + Date.now();
-
-        const iframe = document.getElementById("contador");
-
-        const limite = setTimeout(abrirWhatsApp, 5000);
-
-        iframe.onload = function() {
-          clearTimeout(limite);
-          setTimeout(abrirWhatsApp, 500);
-        };
-
-        iframe.src = url;
-
-      } catch (erro) {
-        console.error("Erro no contador:", erro);
-
-        status.textContent = "Abrindo WhatsApp...";
-
-        setTimeout(abrirWhatsApp, 500);
+      } catch (e) {
+        console.error("Erro no contador:", e);
       }
+
+      abrirWhatsApp();
     }
 
     iniciar();
   </script>
-
 </body>
 </html>
