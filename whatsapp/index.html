@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,11 +7,14 @@
   <title>City Norte Segurança & Tecnologia</title>
 </head>
 
-<body>
-  <p>Redirecionando para o WhatsApp...</p>
+<body style="font-family:Arial;text-align:center;padding:30px">
 
-  <a href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
-    Clique aqui se o redirecionamento não funcionar.
+  <h3>City Norte Segurança & Tecnologia</h3>
+  <p id="status">Iniciando verificação...</p>
+
+  <a id="linkWhatsApp"
+     href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+    Clique aqui se não for redirecionado.
   </a>
 
   <script>
@@ -20,29 +24,52 @@
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbyqTzv5yqwt5Of2QKj2fVbdKWF_xW0Hpf9ZZ-24WZ-wl1VPMYf0gBxBDoMUF3KU3ZXL/exec";
 
+    const status = document.getElementById("status");
+
     async function iniciar() {
       try {
-        const resposta = await fetch(
-          "https://api.ipify.org?format=json"
+        status.textContent = "Etapa 1: consultando IP...";
+
+        const respostaIP = await fetch(
+          "https://api.ipify.org?format=json",
+          { cache: "no-store" }
         );
 
-        const dados = await resposta.json();
+        if (!respostaIP.ok) {
+          throw new Error("Falha na consulta do IP.");
+        }
 
-        const url =
-          SCRIPT_URL +
+        const dados = await respostaIP.json();
+
+        status.textContent = "Etapa 2: enviando registro...";
+
+        const url = SCRIPT_URL +
           "?ip=" + encodeURIComponent(dados.ip) +
-          "&origem=" + encodeURIComponent("Facebook");
+          "&origem=" + encodeURIComponent("Facebook") +
+          "&t=" + Date.now();
 
-        await fetch(url, { mode: "no-cors" });
+        await fetch(url, {
+          method: "GET",
+          mode: "no-cors",
+          cache: "no-store"
+        });
+
+        status.textContent =
+          "Etapa 3: solicitação enviada. Abrindo WhatsApp...";
 
       } catch (erro) {
-        console.log("Não foi possível contabilizar o acesso.");
+        status.textContent =
+          "Falha na verificação ou no envio. Abrindo WhatsApp...";
+        console.error(erro);
       }
 
-      window.location.replace(WHATSAPP_URL);
+      setTimeout(() => {
+        window.location.replace(WHATSAPP_URL);
+      }, 1500);
     }
 
     iniciar();
   </script>
+
 </body>
 </html>
