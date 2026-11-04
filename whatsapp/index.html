@@ -10,10 +10,13 @@
 <body style="font-family:Arial;text-align:center;padding:30px">
 
   <h3>City Norte Segurança & Tecnologia</h3>
+
   <p id="status">Iniciando verificação...</p>
 
-  <a id="linkWhatsApp"
-     href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+  <a
+    id="linkWhatsApp"
+    href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos."
+  >
     Clique aqui se não for redirecionado.
   </a>
 
@@ -43,7 +46,8 @@
 
         status.textContent = "Etapa 2: enviando registro...";
 
-        const url = SCRIPT_URL +
+        const url =
+          SCRIPT_URL +
           "?ip=" + encodeURIComponent(dados.ip) +
           "&origem=" + encodeURIComponent("Facebook") +
           "&t=" + Date.now();
@@ -60,12 +64,13 @@
       } catch (erro) {
         status.textContent =
           "Falha na verificação ou no envio. Abrindo WhatsApp...";
-        console.error(erro);
+
+        console.error("Erro no contador:", erro);
       }
 
       setTimeout(() => {
         window.location.replace(WHATSAPP_URL);
-      }, 1500);
+      }, 8000);
     }
 
     iniciar();
