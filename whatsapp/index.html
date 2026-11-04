@@ -10,42 +10,22 @@
 <body style="font-family:Arial;text-align:center;padding:30px">
 
   <h3>City Norte Segurança & Tecnologia</h3>
+  <p id="status">Preparando acesso ao WhatsApp...</p>
 
-  <p id="status">Iniciando verificação...</p>
-
-  <a href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
+  <a id="linkWhatsApp"
+     href="https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.">
     Clique aqui se não for redirecionado.
   </a>
 
   <script>
-    const WHATSAPP_URL =
-      "https://wa.me/5591981899328?text=Ol%C3%A1%21%20Vim%20pelo%20an%C3%BAncio%20do%20Facebook%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos.";
-
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbyqTzv5yqwt5Of2QKj2fVbdKWF_xW0Hpf9ZZ-24WZ-wl1VPMYf0gBxBDoMUF3KU3ZXL/exec";
 
-    const status = document.getElementById("status");
-
-    function abrirWhatsApp() {
-      status.textContent = "Abrindo WhatsApp...";
-      window.location.replace(WHATSAPP_URL);
-    }
-
     async function iniciar() {
-      let imagem;
-      let redirecionado = false;
-
-      const redirecionarUmaVez = () => {
-        if (redirecionado) return;
-        redirecionado = true;
-        abrirWhatsApp();
-      };
-
-      // Limite de espera para não deixar o visitante preso.
-      const limite = setTimeout(redirecionarUmaVez, 5000);
+      const status = document.getElementById("status");
 
       try {
-        status.textContent = "Etapa 1: consultando IP...";
+        status.textContent = "Consultando conexão...";
 
         const resposta = await fetch(
           "https://api.ipify.org?format=json",
@@ -53,40 +33,25 @@
         );
 
         if (!resposta.ok) {
-          throw new Error("Não foi possível consultar o IP.");
+          throw new Error("Não foi possível consultar a conexão.");
         }
 
         const dados = await resposta.json();
 
-        status.textContent = "Etapa 2: enviando registro...";
+        status.textContent = "Preparando redirecionamento...";
 
-        const url =
+        const destino =
           SCRIPT_URL +
           "?ip=" + encodeURIComponent(dados.ip) +
-          "&origem=" + encodeURIComponent("Facebook") +
-          "&t=" + Date.now();
+          "&origem=" + encodeURIComponent("Facebook");
 
-        imagem = new Image();
-
-        imagem.onload = () => {
-          status.textContent = "Resposta recebida. Abrindo WhatsApp...";
-          clearTimeout(limite);
-          setTimeout(redirecionarUmaVez, 1000);
-        };
-
-        imagem.onerror = () => {
-          status.textContent = "Resposta recebida. Abrindo WhatsApp...";
-          clearTimeout(limite);
-          setTimeout(redirecionarUmaVez, 1000);
-        };
-
-        imagem.src = url;
+        window.location.replace(destino);
 
       } catch (erro) {
-        console.error("Erro no contador:", erro);
-        status.textContent = "Não foi possível registrar. Abrindo WhatsApp...";
-        clearTimeout(limite);
-        setTimeout(redirecionarUmaVez, 1000);
+        console.error("Erro:", erro);
+
+        status.textContent =
+          "Não foi possível verificar a conexão. Tente novamente.";
       }
     }
 
